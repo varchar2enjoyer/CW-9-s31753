@@ -36,7 +36,7 @@ public class PrescriptionService(AppDbContext context) : IPrescriptionService
             {
                 if (!medicamentsIds.Contains(medicamentDto.IdMedicament))
                 {
-                    throw new NotFoundException("This medicament does'nt exist");
+                    throw new NotFoundException("This medicament doesn't exist");
                 }
             }
 
@@ -102,7 +102,7 @@ public class PrescriptionService(AppDbContext context) : IPrescriptionService
 
         if (patient == null)
         {
-            throw new PatientException("This patient doesn't exist.");
+            throw new NotFoundException("This patient doesn't exist.");
         }
 
         var prescriptions = new List<PrescriptionGetDto>();
@@ -131,7 +131,7 @@ public class PrescriptionService(AppDbContext context) : IPrescriptionService
             
             if (doctor == null)
             {
-                throw new PatientException("This doctor doesn't exist.");
+                throw new NotFoundException("This doctor doesn't exist.");
             }
 
             prescriptions.Add(new PrescriptionGetDto
