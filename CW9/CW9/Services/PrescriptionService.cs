@@ -21,12 +21,12 @@ public class PrescriptionService(AppDbContext context) : IPrescriptionService
         {
             if (prescriptionPostDto.DueDate < prescriptionPostDto.Date)
             {
-                throw new PatientException("Due date cannot be earlier than prescription date.");
+                throw new PatientException("Due date can't be before the prescription date");
             }
 
             if (prescriptionPostDto.Medicaments.Count > 10)
             {
-                throw new PatientException("Cannot add more than 10 medicaments.");
+                throw new PatientException("Can't add over 10 medicaments");
             }
 
             var medicamentsIds = await context.Medicaments.Select(medicament => medicament.IdMedicament)
@@ -36,7 +36,7 @@ public class PrescriptionService(AppDbContext context) : IPrescriptionService
             {
                 if (!medicamentsIds.Contains(medicamentDto.IdMedicament))
                 {
-                    throw new NotFoundException("Medicament does not exist.");
+                    throw new NotFoundException("This medicament does'nt exist");
                 }
             }
 
@@ -102,7 +102,7 @@ public class PrescriptionService(AppDbContext context) : IPrescriptionService
 
         if (patient == null)
         {
-            throw new PatientException("Patient does not exist.");
+            throw new PatientException("This patient doesn't exist.");
         }
 
         var prescriptions = new List<PrescriptionGetDto>();
@@ -131,7 +131,7 @@ public class PrescriptionService(AppDbContext context) : IPrescriptionService
             
             if (doctor == null)
             {
-                throw new PatientException("Doctor does not exist.");
+                throw new PatientException("This doctor doesn't exist.");
             }
 
             prescriptions.Add(new PrescriptionGetDto
